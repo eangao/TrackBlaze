@@ -48,6 +48,18 @@ public class CacheConfiguration {
             createCache(cm, com.elmarangao.trackblaze.domain.User.class.getName());
             createCache(cm, com.elmarangao.trackblaze.domain.Authority.class.getName());
             createCache(cm, com.elmarangao.trackblaze.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.elmarangao.trackblaze.domain.Athlete.class.getName());
+            createCache(cm, com.elmarangao.trackblaze.domain.Athlete.class.getName() + ".trackFieldEntryAthleteDetails");
+            createCache(cm, com.elmarangao.trackblaze.domain.Athlete.class.getName() + ".events");
+            createCache(cm, com.elmarangao.trackblaze.domain.TrackFieldEntry.class.getName());
+            createCache(cm, com.elmarangao.trackblaze.domain.TrackFieldEntry.class.getName() + ".details");
+            createCache(cm, com.elmarangao.trackblaze.domain.TrackFieldEntryAthleteDetails.class.getName());
+            createCache(cm, com.elmarangao.trackblaze.domain.TrackFieldEntryAthleteDetails.class.getName() + ".trackFieldEntries");
+            createCache(cm, com.elmarangao.trackblaze.domain.Event.class.getName());
+            createCache(cm, com.elmarangao.trackblaze.domain.Event.class.getName() + ".trackFieldEntries");
+            createCache(cm, com.elmarangao.trackblaze.domain.Event.class.getName() + ".athletes");
+            createCache(cm, com.elmarangao.trackblaze.domain.School.class.getName());
+            createCache(cm, com.elmarangao.trackblaze.domain.School.class.getName() + ".athletes");
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -7,6 +7,11 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
+        "athlete": "Athlete",
+        "trackFieldEntry": "Track Field Entry",
+        "trackFieldEntryAthleteDetails": "Track Field Entry Athlete Details",
+        "event": "Event",
+        "school": "School",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
