@@ -1,0 +1,82 @@
+{
+  "applications": "*",
+  "changelogDate": "20230323031642",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "athlete",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "firstName",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength", "required"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "middleName",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "lastName",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength", "required"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "birthDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "gender",
+      "fieldType": "Gender",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "MALE,FEMALE"
+    },
+    {
+      "fieldName": "picture",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "userId",
+      "fieldType": "Long"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Athlete",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "trackFieldEntryAthleteDetails",
+      "otherEntityRelationshipName": "athlete",
+      "relationshipName": "trackFieldEntryAthleteDetails",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "event",
+      "otherEntityRelationshipName": "athlete",
+      "ownerSide": true,
+      "relationshipName": "event",
+      "relationshipType": "many-to-many",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "school",
+      "otherEntityRelationshipName": "athlete",
+      "relationshipName": "school",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

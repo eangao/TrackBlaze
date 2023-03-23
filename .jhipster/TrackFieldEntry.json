@@ -1,0 +1,48 @@
+{
+  "applications": "*",
+  "changelogDate": "20230323031643",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "track_field_entry",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "category",
+      "fieldType": "Category",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "ELEMENTARY_BOYS,ELEMENTARY_GIRLS,SECONDARY_BOYS,SECONDARY_GIRLS"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "TrackFieldEntry",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "trackFieldEntryAthleteDetails",
+      "otherEntityRelationshipName": "trackFieldEntry",
+      "ownerSide": true,
+      "relationshipName": "details",
+      "relationshipType": "many-to-many",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "event",
+      "otherEntityRelationshipName": "trackFieldEntry",
+      "relationshipName": "event",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

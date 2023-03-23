@@ -1,0 +1,27 @@
+{
+  "trackBlazeApp": {
+    "trackFieldEntry": {
+      "home": {
+        "title": "Track Field Entries",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Track Field Entry",
+        "createOrEditLabel": "Create or edit a Track Field Entry",
+        "notFound": "No Track Field Entries found"
+      },
+      "created": "A new Track Field Entry is created with identifier {{ param }}",
+      "updated": "A Track Field Entry is updated with identifier {{ param }}",
+      "deleted": "A Track Field Entry is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Track Field Entry {{ id }}?"
+      },
+      "detail": {
+        "title": "Track Field Entry"
+      },
+      "id": "Id",
+      "description": "Description",
+      "category": "Category",
+      "details": "Details",
+      "event": "Event"
+    }
+  }
+}

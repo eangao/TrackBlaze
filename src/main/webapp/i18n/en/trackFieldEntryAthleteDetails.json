@@ -1,0 +1,28 @@
+{
+  "trackBlazeApp": {
+    "trackFieldEntryAthleteDetails": {
+      "home": {
+        "title": "Track Field Entry Athlete Details",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Track Field Entry Athlete Details",
+        "createOrEditLabel": "Create or edit a Track Field Entry Athlete Details",
+        "notFound": "No Track Field Entry Athlete Details found"
+      },
+      "created": "A new Track Field Entry Athlete Details is created with identifier {{ param }}",
+      "updated": "A Track Field Entry Athlete Details is updated with identifier {{ param }}",
+      "deleted": "A Track Field Entry Athlete Details is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Track Field Entry Athlete Details {{ id }}?"
+      },
+      "detail": {
+        "title": "Track Field Entry Athlete Details"
+      },
+      "id": "Id",
+      "rank": "Rank",
+      "timeHeightDistance": "Time Height Distance",
+      "remarks": "Remarks",
+      "athlete": "Athlete",
+      "trackFieldEntry": "Track Field Entry"
+    }
+  }
+}

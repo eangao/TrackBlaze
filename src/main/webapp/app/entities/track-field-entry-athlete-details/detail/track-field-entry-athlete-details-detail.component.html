@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="trackFieldEntryAthleteDetails">
+      <h2 data-cy="trackFieldEntryAthleteDetailsDetailsHeading">
+        <span jhiTranslate="trackBlazeApp.trackFieldEntryAthleteDetails.detail.title">Track Field Entry Athlete Details</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="trackBlazeApp.trackFieldEntryAthleteDetails.id">Id</span></dt>
+        <dd>
+          <span>{{ trackFieldEntryAthleteDetails.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="trackBlazeApp.trackFieldEntryAthleteDetails.rank">Rank</span></dt>
+        <dd>
+          <span>{{ trackFieldEntryAthleteDetails.rank }}</span>
+        </dd>
+        <dt><span jhiTranslate="trackBlazeApp.trackFieldEntryAthleteDetails.timeHeightDistance">Time Height Distance</span></dt>
+        <dd>
+          <span>{{ trackFieldEntryAthleteDetails.timeHeightDistance }}</span>
+        </dd>
+        <dt><span jhiTranslate="trackBlazeApp.trackFieldEntryAthleteDetails.remarks">Remarks</span></dt>
+        <dd>
+          <span>{{ trackFieldEntryAthleteDetails.remarks }}</span>
+        </dd>
+        <dt><span jhiTranslate="trackBlazeApp.trackFieldEntryAthleteDetails.athlete">Athlete</span></dt>
+        <dd>
+          <div *ngIf="trackFieldEntryAthleteDetails.athlete">
+            <a [routerLink]="['/athlete', trackFieldEntryAthleteDetails.athlete.id, 'view']">{{
+              trackFieldEntryAthleteDetails.athlete.id
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button
+        type="button"
+        [routerLink]="['/track-field-entry-athlete-details', trackFieldEntryAthleteDetails.id, 'edit']"
+        class="btn btn-primary"
+      >
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

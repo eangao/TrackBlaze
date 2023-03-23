@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity TrackFieldEntryAthleteDetails.
+    -->
+    <changeSet id="20230323031644-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="athlete_id"
+                                 baseTableName="track_field_entry_athlete_details"
+                                 constraintName="fk_track_field_entry_athlete_details__athlete_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="athlete"/>
+    </changeSet>
+</databaseChangeLog>

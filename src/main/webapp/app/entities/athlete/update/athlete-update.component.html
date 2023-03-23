@@ -1,0 +1,224 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-athlete-heading" data-cy="AthleteCreateUpdateHeading" jhiTranslate="trackBlazeApp.athlete.home.createOrEditLabel">
+        Create or edit a Athlete
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="trackBlazeApp.athlete.id" for="field_id">Id</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="trackBlazeApp.athlete.firstName" for="field_firstName">First Name</label>
+          <input type="text" class="form-control" name="firstName" id="field_firstName" data-cy="firstName" formControlName="firstName" />
+          <div *ngIf="editForm.get('firstName')!.invalid && (editForm.get('firstName')!.dirty || editForm.get('firstName')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('firstName')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('firstName')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 100 }"
+            >
+              This field cannot be longer than 100 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="trackBlazeApp.athlete.middleName" for="field_middleName">Middle Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="middleName"
+            id="field_middleName"
+            data-cy="middleName"
+            formControlName="middleName"
+          />
+          <div *ngIf="editForm.get('middleName')!.invalid && (editForm.get('middleName')!.dirty || editForm.get('middleName')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('middleName')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="trackBlazeApp.athlete.lastName" for="field_lastName">Last Name</label>
+          <input type="text" class="form-control" name="lastName" id="field_lastName" data-cy="lastName" formControlName="lastName" />
+          <div *ngIf="editForm.get('lastName')!.invalid && (editForm.get('lastName')!.dirty || editForm.get('lastName')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('lastName')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('lastName')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 100 }"
+            >
+              This field cannot be longer than 100 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="trackBlazeApp.athlete.birthDate" for="field_birthDate">Birth Date</label>
+          <div class="input-group">
+            <input
+              id="field_birthDate"
+              data-cy="birthDate"
+              type="text"
+              class="form-control"
+              name="birthDate"
+              ngbDatepicker
+              #birthDateDp="ngbDatepicker"
+              formControlName="birthDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="birthDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          <div *ngIf="editForm.get('birthDate')!.invalid && (editForm.get('birthDate')!.dirty || editForm.get('birthDate')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('birthDate')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="trackBlazeApp.athlete.gender" for="field_gender">Gender</label>
+          <select class="form-control" name="gender" formControlName="gender" id="field_gender" data-cy="gender">
+            <option [ngValue]="null">{{ 'trackBlazeApp.Gender.null' | translate }}</option>
+            <option *ngFor="let gender of genderValues" [value]="gender">{{ 'trackBlazeApp.Gender.' + gender | translate }}</option>
+          </select>
+          <div *ngIf="editForm.get('gender')!.invalid && (editForm.get('gender')!.dirty || editForm.get('gender')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('gender')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="trackBlazeApp.athlete.picture" for="field_picture">Picture</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('pictureContentType')!.value + ';base64,' + editForm.get('picture')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('picture')!.value"
+              alt="athlete image"
+            />
+            <div *ngIf="editForm.get('picture')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start"
+                >{{ editForm.get('pictureContentType')!.value }}, {{ byteSize(editForm.get('picture')!.value!) }}</span
+              >
+              <button
+                type="button"
+                (click)="clearInputImage('picture', 'pictureContentType', 'file_picture')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_picture"
+              data-cy="picture"
+              (change)="setFileData($event, 'picture', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="picture" id="field_picture" data-cy="picture" formControlName="picture" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="pictureContentType"
+            id="field_pictureContentType"
+            formControlName="pictureContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="trackBlazeApp.athlete.userId" for="field_userId">User Id</label>
+          <input type="number" class="form-control" name="userId" id="field_userId" data-cy="userId" formControlName="userId" />
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="trackBlazeApp.athlete.event" for="field_events">Event</label>
+          <select
+            class="form-control"
+            id="field_events"
+            data-cy="event"
+            multiple
+            name="events"
+            formControlName="events"
+            [compareWith]="compareEvent"
+          >
+            <option [ngValue]="eventOption" *ngFor="let eventOption of eventsSharedCollection">{{ eventOption.name }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['events'])!.invalid && (editForm.get(['events'])!.dirty || editForm.get(['events'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['events'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="trackBlazeApp.athlete.school" for="field_school">School</label>
+          <select
+            class="form-control"
+            id="field_school"
+            data-cy="school"
+            name="school"
+            formControlName="school"
+            [compareWith]="compareSchool"
+          >
+            <option *ngIf="editForm.get(['school'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="schoolOption" *ngFor="let schoolOption of schoolsSharedCollection">{{ schoolOption.name }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['school'])!.invalid && (editForm.get(['school'])!.dirty || editForm.get(['school'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['school'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

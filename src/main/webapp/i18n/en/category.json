@@ -1,0 +1,11 @@
+{
+  "trackBlazeApp": {
+    "Category": {
+      "null": "",
+      "ELEMENTARY_BOYS": "ELEMENTARY_BOYS",
+      "ELEMENTARY_GIRLS": "ELEMENTARY_GIRLS",
+      "SECONDARY_BOYS": "SECONDARY_BOYS",
+      "SECONDARY_GIRLS": "SECONDARY_GIRLS"
+    }
+  }
+}

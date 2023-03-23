@@ -1,0 +1,39 @@
+{
+  "applications": "*",
+  "changelogDate": "20230323031645",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "event",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Event",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "trackFieldEntry",
+      "otherEntityRelationshipName": "event",
+      "relationshipName": "trackFieldEntry",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "athlete",
+      "otherEntityRelationshipName": "event",
+      "ownerSide": false,
+      "relationshipName": "athlete",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

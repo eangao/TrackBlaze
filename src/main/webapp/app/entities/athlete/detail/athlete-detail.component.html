@@ -1,0 +1,78 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="athlete">
+      <h2 data-cy="athleteDetailsHeading"><span jhiTranslate="trackBlazeApp.athlete.detail.title">Athlete</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="trackBlazeApp.athlete.id">Id</span></dt>
+        <dd>
+          <span>{{ athlete.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="trackBlazeApp.athlete.firstName">First Name</span></dt>
+        <dd>
+          <span>{{ athlete.firstName }}</span>
+        </dd>
+        <dt><span jhiTranslate="trackBlazeApp.athlete.middleName">Middle Name</span></dt>
+        <dd>
+          <span>{{ athlete.middleName }}</span>
+        </dd>
+        <dt><span jhiTranslate="trackBlazeApp.athlete.lastName">Last Name</span></dt>
+        <dd>
+          <span>{{ athlete.lastName }}</span>
+        </dd>
+        <dt><span jhiTranslate="trackBlazeApp.athlete.birthDate">Birth Date</span></dt>
+        <dd>
+          <span>{{ athlete.birthDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="trackBlazeApp.athlete.gender">Gender</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'trackBlazeApp.Gender.' + athlete.gender }}">{{ athlete.gender }}</span>
+        </dd>
+        <dt><span jhiTranslate="trackBlazeApp.athlete.picture">Picture</span></dt>
+        <dd>
+          <div *ngIf="athlete.picture">
+            <a (click)="openFile(athlete.picture, athlete.pictureContentType)">
+              <img
+                [src]="'data:' + athlete.pictureContentType + ';base64,' + athlete.picture"
+                style="max-width: 100%"
+                alt="athlete image"
+              />
+            </a>
+            {{ athlete.pictureContentType }}, {{ byteSize(athlete.picture) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="trackBlazeApp.athlete.userId">User Id</span></dt>
+        <dd>
+          <span>{{ athlete.userId }}</span>
+        </dd>
+        <dt><span jhiTranslate="trackBlazeApp.athlete.event">Event</span></dt>
+        <dd>
+          <span *ngFor="let event of athlete.events; let last = last">
+            <a [routerLink]="['/event', event.id, 'view']">{{ event.name }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="trackBlazeApp.athlete.school">School</span></dt>
+        <dd>
+          <div *ngIf="athlete.school">
+            <a [routerLink]="['/school', athlete.school.id, 'view']">{{ athlete.school.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/athlete', athlete.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

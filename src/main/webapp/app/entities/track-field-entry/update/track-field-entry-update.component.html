@@ -1,0 +1,120 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-track-field-entry-heading"
+        data-cy="TrackFieldEntryCreateUpdateHeading"
+        jhiTranslate="trackBlazeApp.trackFieldEntry.home.createOrEditLabel"
+      >
+        Create or edit a Track Field Entry
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="trackBlazeApp.trackFieldEntry.id" for="field_id">Id</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="trackBlazeApp.trackFieldEntry.description" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+          <div *ngIf="editForm.get('description')!.invalid && (editForm.get('description')!.dirty || editForm.get('description')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('description')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="trackBlazeApp.trackFieldEntry.category" for="field_category">Category</label>
+          <select class="form-control" name="category" formControlName="category" id="field_category" data-cy="category">
+            <option [ngValue]="null">{{ 'trackBlazeApp.Category.null' | translate }}</option>
+            <option *ngFor="let category of categoryValues" [value]="category">
+              {{ 'trackBlazeApp.Category.' + category | translate }}
+            </option>
+          </select>
+          <div *ngIf="editForm.get('category')!.invalid && (editForm.get('category')!.dirty || editForm.get('category')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('category')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="trackBlazeApp.trackFieldEntry.details" for="field_details">Details</label>
+          <select
+            class="form-control"
+            id="field_details"
+            data-cy="details"
+            multiple
+            name="details"
+            formControlName="details"
+            [compareWith]="compareTrackFieldEntryAthleteDetails"
+          >
+            <option
+              [ngValue]="trackFieldEntryAthleteDetailsOption"
+              *ngFor="let trackFieldEntryAthleteDetailsOption of trackFieldEntryAthleteDetailsSharedCollection"
+            >
+              {{ trackFieldEntryAthleteDetailsOption.id }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['details'])!.invalid && (editForm.get(['details'])!.dirty || editForm.get(['details'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['details'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="trackBlazeApp.trackFieldEntry.event" for="field_event">Event</label>
+          <select class="form-control" id="field_event" data-cy="event" name="event" formControlName="event" [compareWith]="compareEvent">
+            <option *ngIf="editForm.get(['event'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="eventOption" *ngFor="let eventOption of eventsSharedCollection">{{ eventOption.name }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['event'])!.invalid && (editForm.get(['event'])!.dirty || editForm.get(['event'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['event'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

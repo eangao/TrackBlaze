@@ -1,0 +1,46 @@
+{
+  "applications": "*",
+  "changelogDate": "20230323031644",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "track_field_entry_athlete_details",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "rank",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "timeHeightDistance",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "remarks",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "TrackFieldEntryAthleteDetails",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "athlete",
+      "otherEntityRelationshipName": "trackFieldEntryAthleteDetails",
+      "relationshipName": "athlete",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "trackFieldEntry",
+      "otherEntityRelationshipName": "details",
+      "ownerSide": false,
+      "relationshipName": "trackFieldEntry",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}
