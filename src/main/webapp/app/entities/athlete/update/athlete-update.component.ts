@@ -16,6 +16,8 @@ import { ISchool } from 'app/entities/school/school.model';
 import { SchoolService } from 'app/entities/school/service/school.service';
 import { Gender } from 'app/entities/enumerations/gender.model';
 
+import { FormArray, FormControl } from '@angular/forms';
+
 @Component({
   selector: 'jhi-athlete-update',
   templateUrl: './athlete-update.component.html',
@@ -88,8 +90,10 @@ export class AthleteUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const athlete = this.athleteFormService.getAthlete(this.editForm);
+    console.log('Save this.editForm', this.editForm);
     if (athlete.id !== null) {
       this.subscribeToSaveResponse(this.athleteService.update(athlete));
+      console.log('Saving athlete:', athlete);
     } else {
       this.subscribeToSaveResponse(this.athleteService.create(athlete));
     }
@@ -137,5 +141,27 @@ export class AthleteUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<ISchool[]>) => res.body ?? []))
       .pipe(map((schools: ISchool[]) => this.schoolService.addSchoolToCollectionIfMissing<ISchool>(schools, this.athlete?.school)))
       .subscribe((schools: ISchool[]) => (this.schoolsSharedCollection = schools));
+  }
+
+  isSelected(eventOption: any): boolean {
+    const selectedOptions = this.editForm.get('events')!.value || [];
+    return selectedOptions.some((option: any) => option.id === eventOption.id);
+  }
+
+  toggleSelection(event: any, eventOption: any): void {
+    const selectedOptions = this.editForm.get('events')!.value || [];
+    const index = selectedOptions.findIndex((option: any) => option.id === eventOption.id);
+
+    if (event.target.checked) {
+      if (index === -1) {
+        selectedOptions.push(eventOption);
+      }
+    } else {
+      if (index !== -1) {
+        selectedOptions.splice(index, 1);
+      }
+    }
+
+    this.editForm.patchValue({ events: selectedOptions });
   }
 }

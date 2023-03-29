@@ -163,20 +163,21 @@
           <input type="number" class="form-control" name="userId" id="field_userId" data-cy="userId" formControlName="userId" />
         </div>
 
-        <div class="row mb-3">
-          <label jhiTranslate="trackBlazeApp.athlete.event" for="field_events">Event</label>
-          <select
-            class="form-control"
-            id="field_events"
-            data-cy="event"
-            multiple
-            name="events"
-            formControlName="events"
-            [compareWith]="compareEvent"
-          >
-            <option [ngValue]="eventOption" *ngFor="let eventOption of eventsSharedCollection">{{ eventOption.name }}</option>
-          </select>
+        <div class="row mb-3" *ngFor="let eventOption of eventsSharedCollection">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="{{ eventOption.name }}"
+              name="events"
+              [value]="eventOption.id"
+              [checked]="isSelected(eventOption)"
+              (change)="toggleSelection($event, eventOption)"
+            />
+            <label class="form-check-label" for="{{ eventOption.name }}">{{ eventOption.name }}</label>
+          </div>
         </div>
+
         <div *ngIf="editForm.get(['events'])!.invalid && (editForm.get(['events'])!.dirty || editForm.get(['events'])!.touched)">
           <small class="form-text text-danger" *ngIf="editForm.get(['events'])?.errors?.required" jhiTranslate="entity.validation.required">
             This field is required.
