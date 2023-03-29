@@ -16,8 +16,6 @@ import { ISchool } from 'app/entities/school/school.model';
 import { SchoolService } from 'app/entities/school/service/school.service';
 import { Gender } from 'app/entities/enumerations/gender.model';
 
-import { FormArray, FormControl } from '@angular/forms';
-
 @Component({
   selector: 'jhi-athlete-update',
   templateUrl: './athlete-update.component.html',
@@ -90,10 +88,8 @@ export class AthleteUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const athlete = this.athleteFormService.getAthlete(this.editForm);
-    console.log('Save this.editForm', this.editForm);
     if (athlete.id !== null) {
       this.subscribeToSaveResponse(this.athleteService.update(athlete));
-      console.log('Saving athlete:', athlete);
     } else {
       this.subscribeToSaveResponse(this.athleteService.create(athlete));
     }
