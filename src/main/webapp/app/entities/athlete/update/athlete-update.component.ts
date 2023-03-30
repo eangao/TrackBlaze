@@ -95,6 +95,28 @@ export class AthleteUpdateComponent implements OnInit {
     }
   }
 
+  isSelected(eventOption: any): boolean {
+    const selectedOptions = this.editForm.get('events')!.value ?? [];
+    return selectedOptions.some((option: any) => option.id === eventOption.id);
+  }
+
+  toggleSelection(event: any, eventOption: any): void {
+    const selectedOptions = this.editForm.get('events')!.value ?? [];
+    const index = selectedOptions.findIndex((option: any) => option.id === eventOption.id);
+
+    if (event.target.checked) {
+      if (index === -1) {
+        selectedOptions.push(eventOption);
+      }
+    } else {
+      if (index !== -1) {
+        selectedOptions.splice(index, 1);
+      }
+    }
+
+    this.editForm.patchValue({ events: selectedOptions });
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IAthlete>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),
@@ -137,27 +159,5 @@ export class AthleteUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<ISchool[]>) => res.body ?? []))
       .pipe(map((schools: ISchool[]) => this.schoolService.addSchoolToCollectionIfMissing<ISchool>(schools, this.athlete?.school)))
       .subscribe((schools: ISchool[]) => (this.schoolsSharedCollection = schools));
-  }
-
-  isSelected(eventOption: any): boolean {
-    const selectedOptions = this.editForm.get('events')!.value || [];
-    return selectedOptions.some((option: any) => option.id === eventOption.id);
-  }
-
-  toggleSelection(event: any, eventOption: any): void {
-    const selectedOptions = this.editForm.get('events')!.value || [];
-    const index = selectedOptions.findIndex((option: any) => option.id === eventOption.id);
-
-    if (event.target.checked) {
-      if (index === -1) {
-        selectedOptions.push(eventOption);
-      }
-    } else {
-      if (index !== -1) {
-        selectedOptions.splice(index, 1);
-      }
-    }
-
-    this.editForm.patchValue({ events: selectedOptions });
   }
 }
